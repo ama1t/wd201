@@ -1,4 +1,4 @@
-const hello = "Hello Git!";
+const hello = "Hello GitHub!";
 const returnhello = () => {
   console.log(hello);
 };
