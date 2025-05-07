@@ -51,19 +51,33 @@ const todoList = () => {
     for (let i = 0; i < n; i++) {
       if (list[i].dueDate === today) {
         if (list[i].completed) {
-          if (i === n - 1) displayableList += "[x] " + list[i].title;
-          else displayableList += "[x] " + list[i].title + " " + "\n";
+          if (i == n - 1) {
+            displayableList += "[x] " + list[i].title;
+          } else {
+            displayableList += "[x] " + list[i].title + " " + "\n";
+          }
         } else {
-          if (i === n - 1) displayableList += "[x] " + list[i].title;
-          else displayableList += "[x] " + list[i].title + " " + "\n";
+          if (i == n - 1) {
+            displayableList += "[ ] " + list[i].title;
+          } else {
+            displayableList += "[ ] " + list[i].title + " " + "\n";
+          }
         }
       } else {
         if (list[i].completed) {
-          if (i === n - 1) displayableList += "[x] " + list[i].title;
-          else displayableList += "[x] " + list[i].title + " " + "\n";
+          if (i == n - 1) {
+            displayableList += "[x] " + list[i].title + " " + list[i].dueDate;
+          } else {
+            displayableList +=
+              "[x] " + list[i].title + " " + list[i].dueDate + "\n";
+          }
         } else {
-          if (i === n - 1) displayableList += "[x] " + list[i].title;
-          else displayableList += "[x] " + list[i].title + " " + "\n";
+          if (i == n - 1) {
+            displayableList += "[ ] " + list[i].title + " " + list[i].dueDate;
+          } else {
+            displayableList +=
+              "[ ] " + list[i].title + " " + list[i].dueDate + "\n";
+          }
         }
       }
     }
