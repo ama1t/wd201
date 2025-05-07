@@ -51,17 +51,19 @@ const todoList = () => {
     for (let i = 0; i < n; i++) {
       if (list[i].dueDate === today) {
         if (list[i].completed) {
-          displayableList += "[x] " + list[i].title + " " + "\n";
+          if (i === n - 1) displayableList += "[x] " + list[i].title;
+          else displayableList += "[x] " + list[i].title + " " + "\n";
         } else {
-          displayableList += "[ ] " + list[i].title + " " + "\n";
+          if (i === n - 1) displayableList += "[x] " + list[i].title;
+          else displayableList += "[x] " + list[i].title + " " + "\n";
         }
       } else {
         if (list[i].completed) {
-          displayableList +=
-            "[x] " + list[i].title + " " + list[i].dueDate + "\n";
+          if (i === n - 1) displayableList += "[x] " + list[i].title;
+          else displayableList += "[x] " + list[i].title + " " + "\n";
         } else {
-          displayableList +=
-            "[ ] " + list[i].title + " " + list[i].dueDate + "\n";
+          if (i === n - 1) displayableList += "[x] " + list[i].title;
+          else displayableList += "[x] " + list[i].title + " " + "\n";
         }
       }
     }
@@ -110,13 +112,13 @@ console.log("Overdue");
 var overdues = todos.overdue();
 var formattedOverdues = todos.toDisplayableList(overdues);
 console.log(formattedOverdues);
-//console.log("\n");
+console.log("\n");
 
 console.log("Due Today");
 let itemsDueToday = todos.dueToday();
 let formattedItemsDueToday = todos.toDisplayableList(itemsDueToday);
 console.log(formattedItemsDueToday);
-//console.log("\n");
+console.log("\n");
 
 console.log("Due Later");
 let itemsDueLater = todos.dueLater();
