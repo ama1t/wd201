@@ -1,5 +1,6 @@
 const todoList = () => {
-  all = [];
+  const today = new Date().toISOString().slice(0, 10);
+  const all = [];
   const add = (todoItem) => {
     all.push(todoItem);
   };
@@ -94,9 +95,7 @@ const todoList = () => {
     toDisplayableList,
   };
 };
-
 module.exports = todoList;
-
 // ####################################### #
 // DO NOT CHANGE ANYTHING BELOW THIS LINE. #
 // ####################################### #
