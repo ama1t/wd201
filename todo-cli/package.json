@@ -1,0 +1,17 @@
+{
+  "name": "todo-cli",
+  "version": "1.0.0",
+  "description": "todo appliication",
+  "license": "ISC",
+  "author": "Amal T <amalmohan3443@gmail.com>",
+  "type": "commonjs",
+  "main": "todo.js",
+  "scripts": {
+    "start": "node todo.js",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "eslint": "^9.26.0",
+    "jest": "^29.7.0"
+  }
+}
