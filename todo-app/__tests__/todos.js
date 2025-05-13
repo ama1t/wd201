@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const request = require("supertest");
 
 const db = require("../models/index");
@@ -80,6 +81,8 @@ describe("Todo Application", function () {
     });
     const parsedResponse = JSON.parse(response.text);
     const todoID = parsedResponse.id;
+
+    expect(todoID).toBeDefined();
 
     const deleteResponse = await agent.delete(`/todos/${todoID}`).send();
     const parsedUpdateResponse = JSON.parse(deleteResponse.text);
