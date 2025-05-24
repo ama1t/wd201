@@ -1,4 +1,13 @@
 body {
-  color: rgb(193, 7, 7);
+  background-color: rgba(212, 212, 212, 0.899);
+
   font-family: "Courier New", Courier, monospace;
+}
+
+h1 {
+  color: black;
+}
+
+td {
+  color: rgb(25, 1, 180);
 }
