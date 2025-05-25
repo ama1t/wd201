@@ -22,8 +22,11 @@
 
 
   <div>
-    <h5>Overdue    </h5>
-    <span id="overdue-count"><%= overdue.length %></span>
+    <div>
+      <div class="flex items-center space-x-2">
+        <h2 class="font-semibold text-black">Overdue</h2>
+        <span id="count-overdue" class="bg-gray-200 text-sm px-2 py-0.5 rounded"><%= overdue.length %></span>
+      </div>
     <ul class="list-none">
       <% overdue.forEach((todo, i) => { %>
 
@@ -59,8 +62,12 @@
         </li>
         <% }); %>
       </ul>
-      <h5>Due Today      </h5>
-      <span id="today-count"><%= dueToday.length %></span>
+    </div>
+    <div>
+      <div class="flex items-center space-x-2">
+        <h2 class="font-semibold text-black">Due Today</h2>
+        <span id="count-due-today" class="bg-gray-200 text-sm px-2 py-0.5 rounded"><%= dueToday.length %></span>
+      </div>
       <ul class="list-none">
         <% dueToday.forEach((todo, i) => { %>
 
@@ -96,9 +103,12 @@
           </li>
           <% }); %>
         </ul>
-      <h5>Due Later 
-      </h5>
-      <span id="later-count"><%= dueLater.length %></span>
+    </div>
+    <div>
+      <div class="flex items-center space-x-2">
+        <h2 class="font-semibold text-black">Due Later</h2>
+        <span id="count-due-later" class="bg-gray-200 text-sm px-2 py-0.5 rounded"><%= dueLater.length %></span>
+      </div>
       <ul class="list-none">
         <% dueLater.forEach((todo, i) => { %>
   
@@ -134,6 +144,7 @@
           </li>
           <% }); %>
         </ul>
+      </div>
     </div>
       <!-- <li class="Todo-Item">
         <div
