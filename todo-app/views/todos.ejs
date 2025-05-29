@@ -120,7 +120,7 @@
                 type="checkbox"
                 id="todo-<%=dueLater[i].id %>"
                 <%= dueLater[i].completed ? 'checked' : '' %>
-                onclick="updateTodo(<%=dueLater[i].id %>,,this.checked)"
+                onclick="updateTodo(<%=dueLater[i].id %>,this.checked)"
                 class="w-4 h-4 text-blue-600 border-gray-100 border-gray cursor-pointer"
               />
               <label for="todo-<%= dueLater[i].id %>" class="ml-2 text-sm text-gray-600 cursor-pointer"
