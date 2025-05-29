@@ -2,7 +2,12 @@ const express = require("express");
 const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
+var csrf = require("tiny-csrf");
+var cookieParser = require("cookie-parser");
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser("your secret here"));
+app.use(csrf("123456789iamasecret987654321look", ["POST", "PUT", "DELETE"]));
 const path = require("path");
 
 app.set("view engine", "ejs");
@@ -12,6 +17,7 @@ app.get("/", async (request, response) => {
   if (request.accepts("html")) {
     response.render("index", {
       allTodos,
+      csrfToken: request.csrfToken(),
     });
   } else {
     response.json("index", {
@@ -51,18 +57,18 @@ app.get("/todos/:id", async function (request, response) {
 
 app.post("/todos", async function (request, response) {
   try {
-    const todo = await Todo.addTodo(request.body.title, request.body.dueDate);
-    return response.json(todo);
+    await Todo.addTodo(request.body.title, request.body.dueDate);
+    return response.redirect("/");
   } catch (error) {
     console.log(error);
     return response.status(422).json(error);
   }
 });
 
-app.put("/todos/:id/markAsCompleted", async function (request, response) {
+app.put("/todos/:id", async function (request, response) {
   const todo = await Todo.findByPk(request.params.id);
   try {
-    const updatedTodo = await todo.markAsCompleted();
+    const updatedTodo = await todo.setCompletionStatus(request.body.completed);
     return response.json(updatedTodo);
   } catch (error) {
     console.log(error);
@@ -78,12 +84,8 @@ app.delete("/todos/:id", async function (request, response) {
   // Then, we have to respond back with true/false based on whether the Todo was deleted or not.
   // response.send(true)
   try {
-    const todo = await Todo.findByPk(request.params.id);
-    if (!todo) {
-      return response.send(false);
-    }
-    await todo.destroy();
-    return response.send(true);
+    await Todo.remove(request.params.id);
+    return response.json({ success: true });
   } catch (error) {
     console.log(error);
     return response.status(422).json(error);
