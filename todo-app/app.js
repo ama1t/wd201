@@ -83,6 +83,9 @@ app.use(function (request, response, next) {
 app.get("/", async (request, response) => {
   // const allTodos = await Todo.getTodos();
   // if (request.accepts("html")) {
+  if (request.isAuthenticated()) {
+    return response.redirect("/todos");
+  }
   response.render("index", {
     title: "Todo Application",
     csrfToken: request.csrfToken(),
