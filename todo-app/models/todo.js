@@ -9,24 +9,34 @@ module.exports = (sequelize, DataTypes) => {
      */
     // eslint-disable-next-line no-unused-vars
     static associate(models) {
+      Todo.belongsTo(models.User, {
+        foreignKey: "userId",
+      });
       // define association here
     }
-    static addTodo(title, dueDate) {
+    static addTodo(title, dueDate, userId) {
       return this.create({
         title: title,
         dueDate: dueDate,
         completed: false,
+        userId: userId,
       });
     }
 
-    static getTodos() {
-      return this.findAll();
+    static async getTodos(userId) {
+      return this.findAll({
+        where: {
+          userId: userId,
+        },
+        order: [["dueDate", "ASC"]],
+      });
     }
 
-    static async remove(id) {
+    static async remove(id, userID) {
       return this.destroy({
         where: {
           id: id,
+          userId: userID,
         },
       });
     }
