@@ -9,6 +9,7 @@ const connectEnsureLogin = require("connect-ensure-login");
 const session = require("express-session");
 const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
+const flash = require("connect-flash");
 
 const saltRounds = 10;
 
@@ -19,6 +20,7 @@ app.use(csrf("123456789iamasecret987654321look", ["POST", "PUT", "DELETE"]));
 const path = require("path");
 const { title } = require("process");
 const user = require("./models/user");
+const { type } = require("os");
 app.use(
   session({
     secret: "your secret here",
@@ -43,7 +45,7 @@ passport.use(
           if (match) {
             return done(null, user);
           } else {
-            return done("Invalid email or password");
+            return done(null, false, { message: "Invalid email or password" });
           }
         });
       } catch (error) {
@@ -70,6 +72,13 @@ passport.deserializeUser(async (id, done) => {
 });
 
 app.set("view engine", "ejs");
+
+app.use(flash());
+
+app.use(function (request, response, next) {
+  response.locals.messages = request.flash();
+  next();
+});
 
 app.get("/", async (request, response) => {
   // const allTodos = await Todo.getTodos();
@@ -106,10 +115,19 @@ app.post("/users", async (request, response) => {
       if (err) {
         console.log(err);
       }
+      request.flash("success", "Account Created successfully");
       response.redirect("/todos");
     });
   } catch (error) {
     console.log(error);
+    if (error.name === "SequelizeValidationError") {
+      error.errors.forEach((err) => request.flash("error", err.message));
+      return response.redirect("/signup");
+    } else {
+      console.log(error);
+      request.flash("error", "signup failed!");
+      return response.redirect("/signup");
+    }
   }
 });
 
@@ -122,7 +140,10 @@ app.get("/login", (request, response) => {
 
 app.post(
   "/session",
-  passport.authenticate("local", { failureRedirect: "/login" }),
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
   (request, response) => {
     console.log("User logged in successfully:", request.user);
     response.redirect("/todos");
@@ -197,10 +218,17 @@ app.post(
         request.body.dueDate,
         request.user.id
       );
+      request.flash("success", "Todo created successfully");
       return response.redirect("/todos");
     } catch (error) {
-      console.log(error);
-      return response.status(422).json(error);
+      if (error.name === "SequelizeValidationError") {
+        error.errors.forEach((err) => request.flash("error", err.message));
+        return response.redirect("/todos");
+      } else {
+        console.log(error);
+        request.flash("error", "Failed to create Todo");
+        return response.redirect("/todos");
+      }
     }
   }
 );
@@ -234,9 +262,11 @@ app.delete(
     // response.send(true)
     try {
       await Todo.remove(request.params.id, request.user.id);
+      request.flash("success", "Todo deleted successfully");
       return response.json({ success: true });
     } catch (error) {
       console.log(error);
+      request.flash("error", "Error deleting Todo");
       return response.status(422).json(error);
     }
   }

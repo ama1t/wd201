@@ -80,6 +80,18 @@
             </div>
           </div>
         </form>
+        <% if (messages.success) { %>
+          <div class="alert alert-success text-green-600  text-sm">
+            <%= messages.success %>
+          </div>
+        <% } %>
+        
+        <% if (messages.error) { %>
+          <div class="alert alert-danger text-red-600  text-sm">
+            <%= messages.error %>
+          </div>
+        <% } %>
+        
         <%- include('todo.ejs')%> <%-include('footer.ejs') %>
       </div>
     </div>

@@ -16,9 +16,8 @@
   });
 %>
 
-
   <div>
-    <div>
+    <div class="py-2">
       <div class="flex items-center space-x-2">
         <h5 class="font-semibold text-black">Overdue</h5>
         <span id="count-overdue" class="bg-gray-200 text-sm px-2 py-0.5 rounded"><%= overdue.length %></span>
@@ -61,7 +60,7 @@
         <% }); %>
       </ul>
     </div>
-    <div>
+    <div class="py-2">
       <div class="flex items-center space-x-2">
         <h5 class="font-semibold text-black">Due Today</h5>
         <span id="count-due-today" class="bg-gray-200 text-sm px-2 py-0.5 rounded"><%= dueToday.length %></span>
@@ -104,7 +103,7 @@
           <% }); %>
         </ul>
     </div>
-    <div>
+    <div class="py-2">
       <div class="flex items-center space-x-2">
         <h5 class="font-semibold text-black">Due Later</h5>
         <span id="count-due-later" class="bg-gray-200 text-sm px-2 py-0.5 rounded"><%= dueLater.length %></span>
@@ -147,7 +146,7 @@
           <% }); %>
         </ul>
       </div>
-      <div>
+      <div class="py-2">
         <div class="flex items-center space-x-2">
           <h5 class="font-semibold text-black">Completed Items</h5>
           <span id="count-completed" class="bg-gray-200 text-sm px-2 py-0.5 rounded"><%= completedItems.length %></span>
