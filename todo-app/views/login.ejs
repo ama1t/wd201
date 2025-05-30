@@ -9,31 +9,35 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
-    <div class="grid grid-cols-6">
-      <div class="col-start-3 col-span-2">
+    <div class="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div class="w-full max-w-md bg-white rounded-lg shadow p-6">
         <%- include('header.ejs') %>
-        <h6 class="py-4">Login to your account</h6>
+        <h2 class="py-4 text-lg font-semibold text-gray-700 text-center">
+          Login to your account
+        </h2>
         <form action="/session" method="post">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
           <div class="py-3">
-            <label for="email">Email:</label>
+            <label for="email" class="text-gray-700 text-lg">Email:</label>
             <input
               type="email"
               name="email"
               placeholder="email"
               required
-              class="w-full border border-gray-600 text-gray-900 text-sm rounded p-2"
+              class="w-full border border-gray-400 text-gray-500 text-sm rounded p-2"
             />
           </div>
 
           <div class="py-3">
-            <label for="password">Password:</label>
+            <label for="password" class="text-gray-700 text-lg"
+              >Password:</label
+            >
             <input
               type="password"
               name="password"
               placeholder="password"
               required
-              class="w-full border border-gray-600 text-gray-900 text-sm rounded p-2"
+              class="w-full border border-gray-400 text-gray-500 text-sm rounded p-2"
             />
           </div>
 
@@ -44,13 +48,7 @@
             Sign in
           </button>
         </form>
-        <% if(messages && messages.error && messages.error.length > 0)  { %>
-
-          <% for(var i=0; i<messages.error.length; i++) { %>
-                   <div class="text-red-600 py-2 text-sm"><%= messages.error[i] %></div>
-          <% } %>
-        <% } %>
-        
+        <%-include('notifications.ejs')%>
       </div>
     </div>
   </body>

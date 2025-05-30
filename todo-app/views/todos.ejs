@@ -46,10 +46,12 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="grid grid-cols-6">
-      <div class="col-start-3 col-span-2">
+    <div class="min-h-screen bg-gray-100 flex justify-center">
+      <div class="w-full max-w-md bg-white shadow p-6">
         <%- include('header.ejs') %>
-        <a href="/signout">Signout</a>
+        <a href="/signout" class="text-md text-gray-600 hover:text-gray-900"
+          >Signout</a
+        >
         <form action="/todos" method="post">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
           <div class="flex gap-2 py-4">
@@ -80,19 +82,8 @@
             </div>
           </div>
         </form>
-        <% if (messages.success) { %>
-          <div class="alert alert-success text-green-600  text-sm">
-            <%= messages.success %>
-          </div>
-        <% } %>
-        
-        <% if (messages.error) { %>
-          <div class="alert alert-danger text-red-600  text-sm">
-            <%= messages.error %>
-          </div>
-        <% } %>
-        
-        <%- include('todo.ejs')%> <%-include('footer.ejs') %>
+        <%-include('notifications.ejs')%> <%- include('todo.ejs')%>
+        <%-include('footer.ejs') %>
       </div>
     </div>
   </body>

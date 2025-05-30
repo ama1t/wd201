@@ -9,11 +9,13 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="grid grid-cols-6">
-      <div class="col-start-3 col-span-2">
+    <div class="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div class="w-full max-w-md bg-white rounded-lg shadow p-6">
         <%- include('header.ejs') %>
-        <p class="py-2">Welcome to the TO-Do manager</p>
-        <p class="py-2">
+        <p class="py-4 text-lg font-semibold text-gray-700 text-center">
+          Welcome to the To-Do Manager
+        </p>
+        <p class="py-2 text-lg text-center text-gray-600">
           New here?
           <a
             class="text-green-600 underline hover:text-green-700"
@@ -21,7 +23,7 @@
             >Sign-up now</a
           >
         </p>
-        <p class="py-2">
+        <p class="py-2 text-lg text-center text-gray-600">
           Already have an account?
           <a class="text-green-600 underline hover:text-green-700" href="/login"
             >Sign-in</a
